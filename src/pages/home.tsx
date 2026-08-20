@@ -21,12 +21,6 @@ const projects = [
     description: "Open-source Dynamic Island client for the desktop.",
   },
   {
-    slug: "prodBirdy/bepost",
-    href: "https://github.com/prodBirdy/bepost",
-    description:
-      "Editorial system: Shopify products → brief → generate → editor → approve → blog.",
-  },
-  {
     slug: "prodBirdy/shadcn-hydrogen-setup",
     href: "https://github.com/prodBirdy/shadcn-hydrogen-setup",
     description: "CLI that adds shadcn to Shopify Hydrogen / Remix projects.",
