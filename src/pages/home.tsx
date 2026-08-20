@@ -111,6 +111,7 @@ export function Home() {
                 ) : (
                   <Link
                     to={item.href}
+                    viewTransition
                     className="text-[16px] leading-5 underline underline-offset-4"
                   >
                     {item.title}

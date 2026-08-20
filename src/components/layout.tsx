@@ -15,7 +15,7 @@ export function Layout({
       <div className="page">
         <header className="rule col-span-full grid grid-cols-subgrid pb-6">
           <Wordmark className="font-heading col-span-4 text-[40px] leading-none tracking-tight md:col-span-8 md:text-[64px]">
-            <Link to="/" className="no-underline">
+            <Link to="/" viewTransition className="no-underline">
               prodBirdy
             </Link>
           </Wordmark>
