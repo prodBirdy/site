@@ -14,6 +14,7 @@ export function PostPage() {
         </p>
         <Link
           to="/"
+          viewTransition
           className="col-span-full text-[12px] underline underline-offset-4"
         >
           back
@@ -25,7 +26,7 @@ export function PostPage() {
   return (
     <Layout>
       <p className="col-span-full pt-6 md:col-span-2 md:pt-10">
-        <Link to="/" className="label underline underline-offset-4">
+        <Link to="/" viewTransition className="label underline underline-offset-4">
           back
         </Link>
       </p>

@@ -197,3 +197,10 @@
 .prose-mdx code {
   font-size: 13px;
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+  animation-timing-function: ease;
+  mix-blend-mode: normal;
+}
