@@ -22,8 +22,9 @@ export function WidgetsPage() {
           FileMaker widgets
         </h1>
         <p className="mt-4 max-w-xl text-[14px] leading-5 text-zinc-600">
-          Drop-in web-viewer widgets for FileMaker developers. Source stays
-          private until you unlock a SKU.
+          First-wave kit for FileMaker developers. Drop into a file you already
+          have. Not an ERP app. Not HGI OfficeAssistant. Source stays private
+          until you unlock a SKU.
         </p>
       </section>
 
