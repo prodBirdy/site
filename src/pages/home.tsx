@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router"
 import { Layout } from "@/components/layout"
 import { formatDate, getPosts } from "@/lib/posts"
@@ -33,28 +34,67 @@ const projects = [
   },
 ] as const
 
+const items = [
+  ...getPosts().map((post) => ({
+    key: post.slug,
+    path: `posts/${post.slug}`,
+    meta: formatDate(post.date),
+    dateTime: post.date,
+    href: `/posts/${post.slug}`,
+    detail: post.excerpt,
+    external: false,
+  })),
+  ...projects.map((project) => ({
+    key: project.slug,
+    path: project.slug,
+    meta: "—",
+    dateTime: undefined as string | undefined,
+    href: project.href,
+    detail: project.description,
+    external: true,
+  })),
+]
+
 export function Home() {
-  const posts = getPosts()
-  const items = [
-    ...posts.map((post) => ({
-      key: post.slug,
-      meta: formatDate(post.date),
-      dateTime: post.date,
-      href: `/posts/${post.slug}`,
-      title: post.title,
-      detail: post.excerpt,
-      external: false,
-    })),
-    ...projects.map((project) => ({
-      key: project.slug,
-      meta: "—",
-      dateTime: undefined as string | undefined,
-      href: project.href,
-      title: project.slug,
-      detail: project.description,
-      external: true,
-    })),
-  ]
+  const last = items.length - 1
+  const [activeKey, setActiveKey] = useState(items[0]?.key)
+  const scanRef = useRef<HTMLDivElement>(null)
+  const rowRefs = useRef<(HTMLLIElement | null)[]>([])
+
+  useEffect(() => {
+    const rows = rowRefs.current
+    let frame = 0
+
+    const update = () => {
+      const scan = scanRef.current
+      if (!scan) return
+      const lineY = scan.getBoundingClientRect().top + scan.offsetHeight / 2
+      let nextKey = items[0]?.key
+      for (let i = 0; i < rows.length; i += 1) {
+        const row = rows[i]
+        const item = items[i]
+        if (!row || !item) continue
+        if (row.getBoundingClientRect().top <= lineY) nextKey = item.key
+      }
+      setActiveKey(nextKey)
+    }
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [])
+
+  const active = items.find((item) => item.key === activeKey) ?? items[0]
 
   return (
     <Layout home>
@@ -80,52 +120,60 @@ export function Home() {
 
       <section className="col-span-4 pt-10 md:col-span-8 md:pt-10">
         <p className="label mb-4">Index</p>
-        <ol>
-          {items.map((item) => (
-            <li
-              key={item.key}
-              className="rule-row grid grid-cols-8 gap-x-4 py-3"
-            >
-              {item.dateTime ? (
-                <time
-                  dateTime={item.dateTime}
-                  className="col-span-2 text-[12px] leading-5 tabular-nums text-zinc-500"
-                >
-                  {item.meta}
-                </time>
-              ) : (
-                <span className="col-span-2 text-[12px] leading-5 text-zinc-500">
-                  {item.meta}
+        <div className="index-track">
+          <div ref={scanRef} className="index-scan" aria-live="polite">
+            {active?.dateTime ? (
+              <time dateTime={active.dateTime}>{active.meta}</time>
+            ) : (
+              <span>—</span>
+            )}
+          </div>
+          <ol className="index-tree">
+            <li className="tree-node text-zinc-400" aria-hidden="true">
+              <span className="tree-branch">.</span>
+            </li>
+            {items.map((item, index) => (
+              <li
+                key={item.key}
+                ref={(node) => {
+                  rowRefs.current[index] = node
+                }}
+                className="tree-node rule-row"
+                data-current={item.key === active?.key ? "true" : undefined}
+              >
+                <span className="tree-branch" aria-hidden="true">
+                  {index === last ? "└─" : "├─"}
                 </span>
-              )}
-              <div className="col-span-6">
                 {item.external ? (
                   <a
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-[16px] leading-5 underline underline-offset-4"
+                    className="tree-name"
                   >
-                    {item.title}
+                    {item.path}
                   </a>
                 ) : (
                   <Link
                     to={item.href}
                     viewTransition
-                    className="text-[16px] leading-5 underline underline-offset-4"
+                    className="tree-name"
                   >
-                    {item.title}
+                    {item.path}
                   </Link>
                 )}
                 {item.detail ? (
-                  <p className="mt-1 text-[14px] leading-5 text-zinc-500">
-                    {item.detail}
-                  </p>
+                  <>
+                    <span className="tree-branch" aria-hidden="true">
+                      {index === last ? " " : "│"}
+                    </span>
+                    <p className="tree-detail">{item.detail}</p>
+                  </>
                 ) : null}
-              </div>
-            </li>
-          ))}
-        </ol>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
     </Layout>
   )

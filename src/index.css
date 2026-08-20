@@ -155,6 +155,68 @@
   border-bottom: 1px solid #e4e4e7;
 }
 
+.index-track {
+  position: relative;
+}
+
+.index-scan {
+  position: sticky;
+  top: 24px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 8px 0;
+}
+
+.index-scan time,
+.index-scan span {
+  font-size: 12px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+  color: #71717a;
+  padding-right: 12px;
+}
+
+.index-scan::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #18181b;
+}
+
+.index-tree {
+  padding-bottom: 45vh;
+}
+
+.tree-node {
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  column-gap: 4px;
+  padding: 12px 0;
+}
+
+.tree-branch {
+  color: #a1a1aa;
+}
+
+.tree-name {
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.tree-detail {
+  font-size: 14px;
+  line-height: 20px;
+  color: #71717a;
+}
+
+.tree-node[data-current="true"] .tree-name {
+  color: #09090b;
+}
+
 .label {
   font-size: 11px;
   line-height: 16px;
