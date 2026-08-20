@@ -22,6 +22,14 @@ export function Layout({
           <nav className="col-span-4 mt-6 flex flex-col justify-end text-[12px] leading-4 text-zinc-600 md:mt-0 md:items-end md:text-right">
             <p>Lauterach</p>
             <p>
+              <Link
+                to="/widgets"
+                viewTransition
+                className="underline underline-offset-4"
+              >
+                widgets
+              </Link>
+              <span className="text-zinc-400"> / </span>
               <a
                 href="https://github.com/prodBirdy"
                 target="_blank"
