@@ -2,7 +2,7 @@ import { Link } from "react-router"
 import { InstallPath } from "@/components/install-path"
 import { Layout } from "@/components/layout"
 import { UnlockPanel } from "@/components/unlock-panel"
-import { widgets } from "@/lib/widgets"
+import { pack, widgets } from "@/lib/widgets"
 
 export function WidgetsPage() {
   return (
@@ -17,54 +17,46 @@ export function WidgetsPage() {
         </Link>
       </p>
       <section className="col-span-4 pt-2 md:col-span-8 md:pt-10">
-        <p className="label mb-3">Widgets</p>
+        <p className="label mb-3">Package</p>
         <h1 className="text-[32px] leading-none tracking-tight md:text-[40px]">
-          FileMaker widgets
+          {pack.name}
         </h1>
         <p className="mt-4 max-w-xl text-[14px] leading-5 text-zinc-600">
-          First-wave kit for FileMaker developers. Drop into a file you already
-          have. Not an ERP app. Not HGI OfficeAssistant. Source stays private
-          until you unlock a SKU.
+          {pack.pitch}
         </p>
+        <p className="mt-4 text-[16px] leading-5">
+          {pack.price}{" "}
+          <span className="text-[12px] text-zinc-500">{pack.priceNote}</span>
+        </p>
+        <div className="mt-4">
+          <UnlockPanel name={pack.name} />
+        </div>
       </section>
 
-      <ul className="col-span-full mt-10 grid grid-cols-subgrid">
-        {widgets.map((widget) => (
-          <li
-            key={widget.slug}
-            className="rule-row col-span-full grid grid-cols-subgrid py-8"
-          >
-            <div className="col-span-4 md:col-span-4">
-              <p className="label">SKU</p>
-              <h2 className="mt-2 text-[20px] leading-6">
-                <Link
-                  to={`/widgets/${widget.slug}`}
-                  viewTransition
-                  className="underline underline-offset-4"
-                >
-                  {widget.name}
-                </Link>
-              </h2>
-              <p className="mt-3 text-[14px] leading-5 text-zinc-600">
+      <section className="col-span-4 pt-10 md:col-span-8 md:col-start-3">
+        <p className="label mb-3">First run</p>
+        <InstallPath />
+      </section>
+
+      <section className="col-span-4 pt-10 md:col-span-8 md:col-start-3">
+        <p className="label mb-3">Inside</p>
+        <ul>
+          {widgets.map((widget) => (
+            <li key={widget.slug} className="rule-row py-4">
+              <Link
+                to={`/widgets/${widget.slug}`}
+                viewTransition
+                className="underline underline-offset-4"
+              >
+                {widget.name}
+              </Link>
+              <p className="mt-2 text-[14px] leading-5 text-zinc-600">
                 {widget.pitch}
               </p>
-              <p className="mt-4 text-[16px] leading-5">
-                {widget.price}{" "}
-                <span className="text-[12px] text-zinc-500">
-                  {widget.priceNote}
-                </span>
-              </p>
-              <div className="mt-4">
-                <UnlockPanel name={widget.name} />
-              </div>
-            </div>
-            <div className="col-span-4 mt-8 md:col-span-8 md:mt-0">
-              <p className="label mb-3">First run</p>
-              <InstallPath />
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   )
 }

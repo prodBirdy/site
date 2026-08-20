@@ -1,8 +1,7 @@
 import { Link, useParams } from "react-router"
 import { InstallPath } from "@/components/install-path"
 import { Layout } from "@/components/layout"
-import { UnlockPanel } from "@/components/unlock-panel"
-import { getWidget, type Widget } from "@/lib/widgets"
+import { pack, getWidget, type Widget } from "@/lib/widgets"
 
 function Mock({ slug }: { slug: string }) {
   if (slug === "form") {
@@ -118,20 +117,16 @@ function Detail({ widget }: { widget: Widget }) {
         </Link>
       </p>
       <article className="col-span-4 pt-2 md:col-span-8 md:pt-10">
-        <p className="label">FileMaker widget</p>
+        <p className="label">Included in the package</p>
         <h1 className="mt-2 text-[32px] leading-none tracking-tight md:text-[40px]">
           {widget.name}
         </h1>
         <p className="mt-4 text-[14px] leading-5 text-zinc-600">
           {widget.pitch}
         </p>
-        <p className="mt-4 text-[16px] leading-5">
-          {widget.price}{" "}
-          <span className="text-[12px] text-zinc-500">{widget.priceNote}</span>
+        <p className="mt-4 text-[14px] leading-5 text-zinc-500">
+          Part of {pack.name}. No separate purchase.
         </p>
-        <div className="mt-4">
-          <UnlockPanel name={widget.name} />
-        </div>
       </article>
 
       <section className="col-span-4 pt-10 md:col-span-8 md:col-start-3">
