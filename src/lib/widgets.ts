@@ -2,7 +2,7 @@ export const pack = {
   name: "FileMaker ERP widget package",
   pitch:
     "Grid, form, picker, kanban, and date-range for a FileMaker web viewer. One drop-in. One unlock.",
-  price: "€49",
+  price: "€72",
   priceNote: "Placeholder. Not live.",
 }
 
