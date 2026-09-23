@@ -29,7 +29,7 @@ export function Layout({
 
   return (
     <div className="min-h-svh bg-page text-copy">
-      <div className="mx-auto flex min-h-svh w-full max-w-[1120px] flex-col px-6 pt-11 pb-14 md:px-12 md:pt-14 md:pb-24">
+      <div className="mx-auto flex w-full max-w-[1120px] flex-col px-6 pt-11 pb-14 md:px-12 md:pt-14 md:pb-24">
         <header className="flex flex-col gap-3.5 border-b border-ink pb-4 md:flex-row md:items-end md:justify-between md:pb-[18px]">
           <Wordmark className="font-heading text-[46px] leading-[41px] tracking-[-2px] text-ink italic md:text-[72px] md:leading-[65px] md:tracking-[-3px]">
             <Link to="/" viewTransition className="no-underline">
@@ -58,7 +58,7 @@ export function Layout({
           </nav>
         </header>
         <main className="flex-1">{children}</main>
-        <footer className="mt-auto flex items-center justify-between gap-3 border-t border-ink pt-[18px] md:pt-5">
+        <footer className="flex items-center justify-between gap-3 border-t border-ink pt-[18px] md:pt-5">
           <p className="text-[11px] leading-[15px] tracking-[1.2px] text-quiet">
             © 2026<span className="hidden md:inline"> prodBirdy</span>
           </p>
