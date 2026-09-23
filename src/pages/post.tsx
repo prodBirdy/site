@@ -9,41 +9,47 @@ export function PostPage() {
   if (!post) {
     return (
       <Layout>
-        <p className="col-span-full pt-8 text-[14px] leading-5 text-zinc-500">
-          Post not found.
-        </p>
-        <Link
-          to="/"
-          viewTransition
-          className="col-span-full text-[12px] underline underline-offset-4"
-        >
-          back
-        </Link>
+        <div className="flex flex-col gap-4 pt-8">
+          <p className="text-[14px] leading-5 text-quiet">Post not found.</p>
+          <Link
+            to="/"
+            viewTransition
+            className="text-[12px] underline underline-offset-4"
+          >
+            back
+          </Link>
+        </div>
       </Layout>
     )
   }
 
   return (
     <Layout>
-      <p className="col-span-full pt-6 md:col-span-2 md:pt-10">
-        <Link to="/" viewTransition className="label underline underline-offset-4">
-          back
-        </Link>
-      </p>
-      <time
-        dateTime={post.date}
-        className="col-span-4 pt-6 text-[12px] leading-5 tabular-nums text-zinc-500 md:col-span-2 md:pt-10"
-      >
-        {formatDate(post.date)}
-      </time>
-      <article className="col-span-4 pt-2 md:col-span-8 md:pt-10">
-        <h1 className="text-[32px] leading-none tracking-tight md:text-[40px]">
-          {post.title}
-        </h1>
-        <div className="prose-mdx mt-8">
-          <post.Component />
+      <div className="flex flex-col gap-6 pt-6 md:flex-row md:gap-10 md:pt-10">
+        <div className="flex flex-col gap-3 md:w-40 md:shrink-0">
+          <Link
+            to="/"
+            viewTransition
+            className="label underline underline-offset-4"
+          >
+            back
+          </Link>
+          <time
+            dateTime={post.date}
+            className="text-[12px] leading-5 text-quiet tabular-nums"
+          >
+            {formatDate(post.date)}
+          </time>
         </div>
-      </article>
+        <article className="min-w-0 flex-1">
+          <h1 className="text-[32px] leading-none tracking-tight text-ink md:text-[40px]">
+            {post.title}
+          </h1>
+          <div className="prose-mdx mt-8">
+            <post.Component />
+          </div>
+        </article>
+      </div>
     </Layout>
   )
 }
